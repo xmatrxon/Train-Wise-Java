@@ -3,6 +3,7 @@
 	<name>trainwise_ear</name>
 	<comment></comment>
 	<projects>
+		<project>trainwise_web</project>
 		<project>trainwise_ejb</project>
 	</projects>
 	<buildSpec>

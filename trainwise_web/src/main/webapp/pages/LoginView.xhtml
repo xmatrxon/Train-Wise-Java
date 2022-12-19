@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	 
+	<ui:composition template="/templates/main-template.xhtml">
+		<ui:define name="content">
+			
+			<section class="login bg-light py-5">
+			    <div class="container">
+			        <form class="loginForm">
+			        <div class="mb-3">
+			            <label for="id_login" class="form-label">Login: </label>
+			            <input type="text" class="form-control" id="id_login" name="login" value="#{loginBB.login}" ></input>
+			        </div>
+			        <div class="mb-3">
+			            <label for="id_pass" class="form-label">Hasło: </label>
+			            <input type="password" class="form-control" id="id_pass" name="haslo" value="#{loginBB.haslo}"></input>
+			        </div>
+			        <button type="submit" value="zaloguj" class="btn btn-primary" action="#{loginBB.doLogin()}">Zaloguj</button>
+			        <a href="{$conf->action_root}register" class="btn btn-primary ms-5">Zarejestruj</a>
+			        </form>
+			    </div>
+			</section>
+			
+		</ui:define>
+	</ui:composition>
+</html>
