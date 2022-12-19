@@ -8,6 +8,7 @@ import javax.faces.simplesecurity.RemoteClient;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import jsf.course.dao.KlientDAO;
 import jsf.course.enities.Klient;
@@ -15,7 +16,7 @@ import jsf.course.enities.Klient;
 @Named
 @RequestScoped
 public class LoginBB {
-	private static final String PAGE_LOGIN = "/pages/login.xhtml?faces-redirect=true";
+	private static final String PAGE_LOGIN = "/pages/LoginView.xhtml?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 	private static final String MAIN_PAGE = "/pages/index.xhtml?faces-redirect=true";
 
@@ -61,6 +62,8 @@ public class LoginBB {
 		RemoteClient<Klient> client = new RemoteClient<Klient>(); //create new RemoteClient
 		client.setDetails(klient);
 	
+//		List<String> roles = klientDAO.getUserRolesFromDatabase(klient); //get User roles
+		
 		//store RemoteClient with request info in session (needed for SecurityFilter)
 		HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
 		client.store(request);

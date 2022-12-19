@@ -4,10 +4,13 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.List;
 
 import jsf.course.enities.Klient;
+import jsf.course.dao.KlientDAO;
 
-
+@Stateless
 public class KlientDAO {
 	@PersistenceContext
 	EntityManager em;
@@ -29,7 +32,7 @@ public class KlientDAO {
 	}
 	
 	public Klient getUserFromDatabase(String login, String haslo) {
-		Query query = em.createQuery("SELECT u FROM Klient u WHERE u.username like :login AND u.haslo LIKE :haslo");
+		Query query = em.createQuery("SELECT u FROM Klient u WHERE u.login like :login AND u.haslo LIKE :haslo");
 		query.setParameter("login", login);
 		query.setParameter("haslo", haslo);
 		
@@ -38,5 +41,19 @@ public class KlientDAO {
 		} catch (Exception e) {	}
 		
 		return null;
+	}
+	
+	public List<String> getUserRolesFromDatabase(Klient klient) {
+		
+		ArrayList<String> roles = new ArrayList<String>();
+		
+		if (klient.getLogin().equals("admin")) {
+			roles.add("admin");
+		}
+		if (klient.getLogin().equals("user3")) {
+			roles.add("user");
+		}
+		
+		return roles;
 	}
 }
