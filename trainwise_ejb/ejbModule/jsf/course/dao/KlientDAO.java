@@ -43,17 +43,4 @@ public class KlientDAO {
 		return null;
 	}
 	
-	public List<String> getUserRolesFromDatabase(Klient klient) {
-		
-		ArrayList<String> roles = new ArrayList<String>();
-		
-		if (klient.getLogin().equals("admin")) {
-			roles.add("admin");
-		}
-		if (klient.getLogin().equals("user3")) {
-			roles.add("user");
-		}
-		
-		return roles;
-	}
 }

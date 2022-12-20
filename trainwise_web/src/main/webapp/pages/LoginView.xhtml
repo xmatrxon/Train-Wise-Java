@@ -12,21 +12,22 @@
 			
 			<section class="login bg-light py-5">
 			    <div class="container">
-			        <form class="loginForm">
-			        <div class="mb-3">
-			            <label for="id_login" class="form-label">Login: </label>
-			            <input type="text" class="form-control" id="id_login" name="login" value="#{loginBB.login}" ></input>
-			        </div>
-			        <div class="mb-3">
-			            <label for="id_pass" class="form-label">Hasło: </label>
-			            <input type="password" class="form-control" id="id_pass" name="haslo" value="#{loginBB.haslo}"></input>
-			        </div>
-			        <button type="submit" value="zaloguj" class="btn btn-primary" action="#{loginBB.doLogin()}">Zaloguj</button>
-			        <a href="{$conf->action_root}register" class="btn btn-primary ms-5">Zarejestruj</a>
-			        </form>
-			    </div>
+				 	<h:form class="loginForm">
+			        	<div class="mb-3">
+			            	<label for="id_login" class="form-label">Login: </label>
+							<h:inputText class="form-control" id="login" value="#{loginBB.login}" required="true" requiredMessage="podaj login"/>
+			        	</div>
+			        	<div class="mb-3">
+			            	<label for="id_pass" class="form-label">Hasło: </label>
+							<h:inputSecret class="form-control" id="pass" value="#{loginBB.haslo}" required="true" requiredMessage="podaj hasło"/>
+			        	</div>
+						<h:commandButton class="btn btn-primary" value="Zaloguj" action="#{loginBB.doLogin()}" update="msg" />
+						<a href="{$conf->action_root}register" class="btn btn-primary ms-5">Zarejestruj</a>
+						<h:messages />
+					</h:form>
+			   </div>
 			</section>
-			
+		
 		</ui:define>
 	</ui:composition>
 </html>

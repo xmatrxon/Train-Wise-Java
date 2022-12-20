@@ -18,7 +18,7 @@ import jsf.course.enities.Klient;
 public class LoginBB {
 	private static final String PAGE_LOGIN = "/pages/LoginView.xhtml?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
-	private static final String MAIN_PAGE = "/pages/index.xhtml?faces-redirect=true";
+	private static final String MAIN_PAGE = "/pages/index.xhtml";
 
 	private String login;
 	private String haslo;
@@ -61,8 +61,8 @@ public class LoginBB {
 		
 		RemoteClient<Klient> client = new RemoteClient<Klient>(); //create new RemoteClient
 		client.setDetails(klient);
-	
-//		List<String> roles = klientDAO.getUserRolesFromDatabase(klient); //get User roles
+
+		client.getRoles().add(klient.getRola());
 		
 		//store RemoteClient with request info in session (needed for SecurityFilter)
 		HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
