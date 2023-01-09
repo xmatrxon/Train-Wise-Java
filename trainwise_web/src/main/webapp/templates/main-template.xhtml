@@ -4,7 +4,8 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	
 	<h:head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -31,9 +32,23 @@
 						<a class="nav-link link" href="#achievements">osiągnięcia</a>
 						<a class="nav-link link" href="#contact">kontakt</a>
 
-				<!-- 	<a href="{$conf->action_root}userInfo" class="nav-link link login-btn">Profil</a> -->
-				<!-- 	<a href="{$conf->action_root}logout" class="nav-link link login-btn">Wyloguj</a>  -->
-						<a href="pages/LoginView.xhtml" class="nav-link link login-btn">Zaloguj</a>
+						<c:set var = "admin" scope = "session" value = "admin"/>
+						<c:set var = "user" scope = "session" value = "user"/>
+						
+						<c:if test="#{remoteClient.details.rola ne admin &amp;&amp; remoteClient.details.rola ne user}">
+							<a href="pages/LoginView.xhtml" class="nav-link link login-btn">Zaloguj</a>
+						</c:if>
+						
+						<h:form class="buttonForm">
+						<c:if test="#{remoteClient.details.rola eq admin}">
+							<h:outputLink value = "UserInfoView.xhtml" class="nav-link link login-btn">Profil</h:outputLink>
+							<h:commandLink class="nav-link link login-btn" value="Wyloguj" action="#{loginBB.doLogout()}"/>	        
+						</c:if>
+						<c:if test="#{remoteClient.details.rola eq user}">
+							<h:outputLink value = "UserInfoView.xhtml" class="nav-link link login-btn">Profil</h:outputLink>
+							<h:commandLink class="nav-link link login-btn" value="Wyloguj" action="#{loginBB.doLogout()}"/>
+						</c:if>
+						</h:form>
 					</div>
 				</div>
 			</div>

@@ -383,6 +383,10 @@ footer {
   bottom: 0;
 }
 
+.buttonForm{
+	display: flex;
+}
+
 @media (min-width: 375px) {
   header h1 {
     font-size: 36px;

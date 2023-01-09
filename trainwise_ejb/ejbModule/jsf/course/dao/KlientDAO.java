@@ -43,4 +43,5 @@ public class KlientDAO {
 		return null;
 	}
 	
+	
 }

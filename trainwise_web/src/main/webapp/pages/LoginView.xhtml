@@ -22,7 +22,7 @@
 							<h:inputSecret class="form-control" id="pass" value="#{loginBB.haslo}" required="true" requiredMessage="podaj hasło"/>
 			        	</div>
 						<h:commandButton class="btn btn-primary" value="Zaloguj" action="#{loginBB.doLogin()}" update="msg" />
-						<a href="{$conf->action_root}register" class="btn btn-primary ms-5">Zarejestruj</a>
+						<a href="RegisterView.xhtml" class="btn btn-primary ms-5">Zarejestruj</a>
 						<h:messages />
 					</h:form>
 			   </div>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	 
+	<ui:composition template="/templates/main-template.xhtml">
+		<ui:define name="content">
+			
+			<section class="login bg-light py-5">
+			    <div class="container">
+			        <h:form class="loginForm">
+			        <div class="mb-3">
+			            <label for="imie" class="form-label">Imie: </label>
+			            <h:inputText class="form-control" id="imie" value="#{registerBB.imie}" required="true" requiredMessage="podaj imie"/>
+			        </div>
+			        <div class="mb-3">
+			            <label for="nazwisko" class="form-label">Nazwisko: </label>
+			            <h:inputText class="form-control" id="nazwisko" value="#{registerBB.nazwisko}" required="true" requiredMessage="podaj nazwisko"/>
+			        </div>
+			        <div class="mb-3">
+			            <label for="nrtel" class="form-label">Nr. telefonu: </label>
+			            <h:inputText class="form-control" id="nrtel" value="#{registerBB.nrTel}" required="true" requiredMessage="podaj nr tel"/>
+			        </div>
+			        <div class="mb-3">
+			            <label for="pesel" class="form-label">PESEL: </label>
+			            <h:inputText class="form-control" id="pesel" value="#{registerBB.pesel}" required="true" requiredMessage="podaj pesel"/>
+			        </div>
+			        <div class="mb-3">
+			            <label for="login" class="form-label">Login: </label>
+			            <h:inputText class="form-control" id="login" value="#{registerBB.login}" required="true" requiredMessage="podaj login"/>
+			        </div>
+			        <div class="mb-3">
+			            <label for="id_pass" class="form-label">Hasło: </label>
+			            <h:inputSecret class="form-control" id="pass" value="#{registerBB.haslo}" required="true" requiredMessage="podaj hasło"/>
+			        </div>
+			        <h:commandButton value="Zarejestruj" class="btn btn-primary" action="#{registerBB.doRegister()}"/>
+			         <!-- <h:inputHidden name="id" value="{$form->id}"/>-->
+			        </h:form>
+			    </div>
+			</section>
+		
+		</ui:define>
+	</ui:composition>
+</html>

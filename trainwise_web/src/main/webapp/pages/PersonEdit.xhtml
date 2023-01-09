@@ -4,13 +4,50 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	
 	 
 	<ui:composition template="/templates/main-template.xhtml">
 		<ui:define name="content">
 			
-	<h1>Strona admina</h1>
+			<div class="container mt-5">
+				<h:form class="searchForm">
+					<legend>Dane osoby</legend>
+			        <div class="mb-3">
+			            <label for="imie" class="form-label">Imie: </label>
+			            <h:inputText class="form-control" id="imie" value="#{registerBB.imie}" required="true" requiredMessage="podaj imie"/>
+			        </div>
+			        <div class="mb-3">
+			            <label for="nazwisko" class="form-label">Nazwisko: </label>
+			            <h:inputText class="form-control" id="nazwisko" value="#{registerBB.nazwisko}" required="true" requiredMessage="podaj nazwisko"/>
+			        </div>
+			        <div class="mb-3">
+			            <label for="nrtel" class="form-label">Nr. telefonu: </label>
+			            <h:inputText class="form-control" id="nrtel" value="#{registerBB.nrTel}" required="true" requiredMessage="podaj nr tel"/>
+			        </div>
+			        <div class="mb-3">
+			            <label for="login" class="form-label">Login: </label>
+			            <h:inputText class="form-control" id="login" value="#{registerBB.login}" required="true" requiredMessage="podaj login"/>
+			        </div>
+			        <div class="mb-3">
+			            <label for="id_pass" class="form-label">Hasło: </label>
+			            <h:inputSecret class="form-control" id="pass" value="#{registerBB.haslo}" required="true" requiredMessage="podaj hasło"/>
+			        </div>
+					  <button type="submit" class="btn btn-primary">Zapisz</button>
+					
+						<c:set var = "admin" scope = "session" value = "admin"/>
+						<c:set var = "user" scope = "session" value = "user"/>
+						
+						<c:if test="#{remoteClient.details.rola eq admin}">
+							<a href="pages/LoginView.xhtml" class="nav-link link login-btn">Panel admina(personlist)</a>
+						</c:if>
+						<c:if test="#{remoteClient.details.rola eq user}">
+							<a href="UserInfoView.xhtml" class="nav-link link login-btn">Panel użytkownika</a>
+						</c:if>
+								         <!-- <h:inputHidden name="id" value="{$form->id}"/>-->
+				</h:form>
+		</div>
 			
 		</ui:define>
 	</ui:composition>

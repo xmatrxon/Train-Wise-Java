@@ -18,10 +18,11 @@ import jsf.course.enities.Klient;
 public class LoginBB {
 	private static final String PAGE_LOGIN = "/pages/LoginView.xhtml?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
-	private static final String MAIN_PAGE = "/pages/index.xhtml";
+	private static final String MAIN_PAGE = "/pages/UserInfoView.xhtml";
 
 	private String login;
 	private String haslo;
+	private String idKlienta;
 
 	public String getLogin() {
 		return login;
@@ -37,6 +38,14 @@ public class LoginBB {
 
 	public void setHaslo(String haslo) {
 		this.haslo = haslo;
+	}
+	
+	public String getId_klienta() {
+		return idKlienta;
+	}
+
+	public void setId_klienta(String idKlienta) {
+		this.idKlienta = idKlienta;
 	}
 	
 	
@@ -56,6 +65,7 @@ public class LoginBB {
 					"Niepoprawny login lub hasło", null));
 			return PAGE_STAY_AT_THE_SAME;
 		}
+		
 
 		// 3. if logged in: get User roles, save in RemoteClient and store it in session
 		
@@ -67,7 +77,10 @@ public class LoginBB {
 		//store RemoteClient with request info in session (needed for SecurityFilter)
 		HttpServletRequest request = (HttpServletRequest) ctx.getExternalContext().getRequest();
 		client.store(request);
-
+		
+	      HttpSession session = (HttpSession) ctx.getExternalContext().getSession(false) ;
+	      session.setAttribute("id",klient.getIdKlienta());
+	      
 		// and enter the system (now SecurityFilter will pass the request)
 		return MAIN_PAGE;
 	}

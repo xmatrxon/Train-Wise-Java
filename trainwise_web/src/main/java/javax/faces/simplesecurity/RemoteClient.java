@@ -17,7 +17,7 @@ public class RemoteClient<T> {
 
 	private String login;
 	private String haslo;
-	private String name;
+	private String idKlienta;
 	private String remoteAddr;
 	private String remoteHost;
 	private int remotePort;
@@ -34,10 +34,10 @@ public class RemoteClient<T> {
 		this.remotePort = request.getRemotePort();
 	}
 
-	public RemoteClient(String login, String haslo, String name, ServletRequest request) {
+	public RemoteClient(String login, String haslo, String idKlienta, ServletRequest request) {
 		this.login = login;
 		this.haslo = haslo;
-		this.name = name;
+		this.idKlienta = idKlienta;
 		if (request != null) {
 			this.remoteAddr = request.getRemoteAddr();
 			this.remoteHost = request.getRemoteHost();
@@ -61,12 +61,12 @@ public class RemoteClient<T> {
 		this.haslo = haslo;
 	}
 
-	public String getName() {
-		return name;
+	public String getidKlienta() {
+		return idKlienta;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setidKlienta(String idKlienta) {
+		this.idKlienta = idKlienta;
 	}
 
 	public String getRemoteAddr() {
@@ -134,6 +134,7 @@ public class RemoteClient<T> {
 
 	public static RemoteClient load(HttpSession session) {
 		return (RemoteClient) session.getAttribute("remoteClient");
+		
 	}
 
 }

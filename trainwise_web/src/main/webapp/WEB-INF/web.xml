@@ -19,7 +19,10 @@
 			<param-value>
 /javax.faces.resource : PUBLIC;
 /public : PUBLIC;
-/pages/PersonEdit.xhtml : admin;
+/pages/PersonEdit.xhtml : admin, user;
+/pages/UserInfoView.xhtml : admin, user;
+/pages/RegisterView.xhtml : PUBLIC;
+/pages/PersonListTable.xhtml : admin;
 /pages/index.xhtml : PUBLIC;
 /resources/img : PUBLIC;
 			</param-value>
