@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jsf.course.enities.Czlonkostwo;
+import jsf.course.enities.Klient;
 import jsf.course.dao.CzlonkostwoDAO;
 
 
@@ -33,18 +34,39 @@ public class CzlonkostwoDAO {
 	}
 	
 	
-	public List<Czlonkostwo> getFullList() {
-		 List<Czlonkostwo> list = null;
+	public Czlonkostwo getFullList(int klient) {
+		Query query = em.createQuery("SELECT c FROM Czlonkostwo c WHERE klient.id = :klient");
+		query.setParameter("klient", klient);
+		try {
+            return (Czlonkostwo) query.getResultList().get(0);
+        } catch (Exception e) {    }
+
+        return null;
+    }
+	
+	public List<Czlonkostwo> getLista() {
+		List<Czlonkostwo> lista = null;
 		Query query = em.createQuery("SELECT c FROM Czlonkostwo c");
 		
 		try {
-            list = query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return list;
+			lista = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lista;
 	}
+	
+	
+//	public Czlonkostwo  getSth(Object klient) {
+//		Query query = em.createQuery("SELECT u FROM Czlonkostwo u WHERE u.klient = :klient");
+//		query.setParameter("klient", klient);
+//
+//		try {
+//			return (Czlonkostwo) query.getResultList().get(0);
+//		} catch (Exception e) {	}
+//		
+//		return null;
+//	}
 	
 	public Czlonkostwo getCzlonkostwo(Object klient) {
 		return em.find(Czlonkostwo.class, klient);

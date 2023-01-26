@@ -1,9 +1,12 @@
 package jsf.course.dao;
 
 import javax.ejb.Stateless;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.servlet.http.HttpSession;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,5 +46,19 @@ public class KlientDAO {
 		return null;
 	}
 	
+	public List<Klient> getList() {
+		List<Klient> list = null;
+		Query query = em.createQuery("SELECT u FROM Klient u");
+		
+		try {
+			list = query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 	
+	public Klient getClientInfo(Object klient) {
+		return em.find(Klient.class, klient);
+	}
 }

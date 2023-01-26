@@ -29,20 +29,26 @@
 							<td>#{remoteClient.details.nrTel}</td>
 							<td>#{remoteClient.details.pesel}</td>
 							<td>
-								<h:form class="buttonForm">
-					
-						   			<ui:repeat var="o" value="#{userInfoBB.list}" varStatus="status">
-									<c:if test="#{o.Klient} eq #{remoteClient.details.idKlienta}">
-											<h:outputLink value = "UserInfoView.xhtml" class="nav-link link login-btn" >Karnet Aktywny</h:outputLink>       
+						   			
+								<c:if test="#{userInfoBB.czlonkostwo.klient.idKlienta ne null}">
+									<c:if test="#{userInfoBB.czlonkostwo.karnet.ID_karnetu eq 1}">
+										<p> Nazwa karnetu: STUDENT</p>
 									</c:if>
-									<c:otherwise>
-											<h:outputText value="Zalogowany: #{remoteClient.details.idKlienta} #{Czlonkostwo.class}" />
-											<h:outputLink value = "UserInfoView.xhtml" class="nav-link link login-btn">Karnet Nieaktywny</h:outputLink>
-									</c:otherwise>
-						   			</ui:repeat>
-								</h:form>
-							</td>
-												
+									<c:if test="#{userInfoBB.czlonkostwo.karnet.ID_karnetu eq 2}">
+										<p> Nazwa karnetu: NORMALNY</p>
+									</c:if>
+									<c:if test="#{userInfoBB.czlonkostwo.karnet.ID_karnetu eq 3}">
+										<p> Nazwa karnetu: PREMIUM</p>
+									</c:if>
+									<p> Od: #{userInfoBB.czlonkostwo.data_rozpoczecia}</p>
+									<p> Do: #{userInfoBB.czlonkostwo.data_zakonczenia}</p>
+									
+								</c:if>
+								<c:if test="#{userInfoBB.czlonkostwo.klient.idKlienta eq null}">
+									<a href="KarnetView.xhtml" class="nav-link link login-btn">Zakup karnet</a>
+								</c:if>  
+						   		
+							</td>				
 							<td>
 								<a class="btn btn-warning" href="PersonEdit.xhtml">Edytuj</a>
 								
@@ -55,6 +61,7 @@
 						
 						<c:if test="#{remoteClient.details.rola eq admin}">
 							<a href="PersonListTable.xhtml" class="nav-link link login-btn">Panel admina</a>
+							<a href="PersonList.xhtml" class="nav-link link login-btn">Personlist</a>
 						</c:if>                                                                
 			</div>
 		

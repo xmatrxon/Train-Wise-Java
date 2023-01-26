@@ -7,34 +7,38 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	
+	<f:metadata>
+	    <f:viewAction action="#{registerBB.onLoad()}" />
+	</f:metadata>
+	
 	 
 	<ui:composition template="/templates/main-template.xhtml">
 		<ui:define name="content">
 			
 			<div class="container mt-5">
-				<h:form class="searchForm">
+				<h:form class="searchForm" rendered="#{registerBB.klient != null}">
 					<legend>Dane osoby</legend>
 			        <div class="mb-3">
 			            <label for="imie" class="form-label">Imie: </label>
-			            <h:inputText class="form-control" id="imie" value="#{registerBB.imie}" required="true" requiredMessage="podaj imie"/>
+			            <h:inputText class="form-control" id="imie" value="#{registerBB.klient.imie}" required="true" requiredMessage="podaj imie"/>
 			        </div>
 			        <div class="mb-3">
 			            <label for="nazwisko" class="form-label">Nazwisko: </label>
-			            <h:inputText class="form-control" id="nazwisko" value="#{registerBB.nazwisko}" required="true" requiredMessage="podaj nazwisko"/>
+			            <h:inputText class="form-control" id="nazwisko" value="#{registerBB.klient.nazwisko}" required="true" requiredMessage="podaj nazwisko"/>
 			        </div>
 			        <div class="mb-3">
 			            <label for="nrtel" class="form-label">Nr. telefonu: </label>
-			            <h:inputText class="form-control" id="nrtel" value="#{registerBB.nrTel}" required="true" requiredMessage="podaj nr tel"/>
+			            <h:inputText class="form-control" id="nrtel" value="#{remoteClient.details.nrTel}" required="true" requiredMessage="podaj nr tel"/>
 			        </div>
 			        <div class="mb-3">
 			            <label for="login" class="form-label">Login: </label>
-			            <h:inputText class="form-control" id="login" value="#{registerBB.login}" required="true" requiredMessage="podaj login"/>
+			            <h:inputText class="form-control" id="login" value="#{remoteClient.details.login}" required="true" requiredMessage="podaj login"/>
 			        </div>
 			        <div class="mb-3">
-			            <label for="id_pass" class="form-label">Hasło: </label>
-			            <h:inputSecret class="form-control" id="pass" value="#{registerBB.haslo}" required="true" requiredMessage="podaj hasło"/>
+			            <label for="haslo" class="form-label">Hasło: </label>
+			            <h:inputSecret class="form-control" id="haslo" value="#{remoteClient.details.haslo}" required="true" requiredMessage="podaj hasło" />
 			        </div>
-					  <button type="submit" class="btn btn-primary">Zapisz</button>
+					<h:commandButton value="Zapisz" class="btn btn-primary" action="#{registerBB.saveData()}"/>
 					
 						<c:set var = "admin" scope = "session" value = "admin"/>
 						<c:set var = "user" scope = "session" value = "user"/>
@@ -45,7 +49,6 @@
 						<c:if test="#{remoteClient.details.rola eq user}">
 							<a href="UserInfoView.xhtml" class="nav-link link login-btn">Panel użytkownika</a>
 						</c:if>
-								         <!-- <h:inputHidden name="id" value="{$form->id}"/>-->
 				</h:form>
 		</div>
 			
