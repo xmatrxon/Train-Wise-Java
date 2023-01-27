@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import jsf.course.enities.Klient;
 import jsf.course.dao.KlientDAO;
@@ -46,16 +47,37 @@ public class KlientDAO {
 		return null;
 	}
 	
-	public List<Klient> getList() {
-		List<Klient> list = null;
-		Query query = em.createQuery("SELECT u FROM Klient u");
-		
+	public List<Klient> getList(Map<String, Object> searchParams) {
+		List<Klient> listt = null;
+
+		String select = "select u ";
+		String from = "from Klient u ";
+		String where = "";
+		String orderby = "order by u.nazwisko asc, u.imie";
+
+		String nazwisko = (String) searchParams.get("nazwisko");
+		if (nazwisko != null) {
+			if (where.isEmpty()) {
+				where = "where ";
+			} else {
+				where += "and ";
+			}
+			where += "u.nazwisko like :nazwisko ";
+		}
+	
+		Query query = em.createQuery(select + from + where + orderby);
+
+		if (nazwisko != null) {
+			query.setParameter("nazwisko", nazwisko+"%");
+		}
+
 		try {
-			list = query.getResultList();
+			listt = query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list;
+
+		return listt;
 	}
 	
 	public Klient getClientInfo(Object klient) {

@@ -118,11 +118,9 @@ public class RegisterBB implements Serializable {
 
 		
 		if (klient != null) {
-			System.out.println("pobrano");
 			
 		} else {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędne użycie systemu", null));
-			System.out.println("nie-pobrano");
 		}
 
 	}

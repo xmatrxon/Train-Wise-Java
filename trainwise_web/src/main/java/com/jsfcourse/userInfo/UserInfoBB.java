@@ -9,7 +9,11 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 
 import jsf.course.dao.CzlonkostwoDAO;
@@ -37,7 +41,16 @@ public class UserInfoBB {
     HttpSession session = (HttpSession) ctx.getExternalContext().getSession(false) ;
     Integer klient = (Integer) session.getAttribute("id");
     
+    private String nazwisko;
+    
+	public String getNazwisko() {
+		return this.nazwisko;
+	}
 
+	public void setNazwisko(String nazwisko) {
+		this.nazwisko = nazwisko;
+	}
+    
 
 public Czlonkostwo getCzlonkostwo() {
 
@@ -69,11 +82,18 @@ public Karnet getKarnet() {
 	return karnet;
 }
 
-
-public List<Klient> getList() {
+public List<Klient> getList(){
+	List<Klient> list = null;
 	
-	return klientDAO.getList();
+	Map<String,Object> searchParams = new HashMap<String, Object>();
 	
+	if (nazwisko != null && nazwisko.length() > 0){
+		searchParams.put("nazwisko", nazwisko);
+	}
+	
+	list = klientDAO.getList(searchParams);
+	
+	return list;
 }
 
 public List<Czlonkostwo> getLista() {

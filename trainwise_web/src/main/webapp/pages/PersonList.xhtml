@@ -9,8 +9,20 @@
 	
 	<ui:composition template="/templates/main-template.xhtml">
 		<ui:define name="content">
- 		
+
+			<div class="container mt-5">
+			<h:form id="search-form" class="searchForm">
+				<legend>Opcje wyszukiwania</legend>
+				  <div class="mb-3">
+				    <label for="nazwisko" class="form-label">Nazwisko</label>
+				    <h:inputText class="form-control"  id="nazwisko" value="#{userInfoBB.nazwisko}"/>
+				  </div>
+				  <h:commandButton class="btn btn-primary" value="Filtruj" update="form-table"/>
+			</h:form>	
+			</div>
+
 			<div class="container mt-5 mb-5">
+				<h:form id="form-table">
 				<table id="tab_people" class="table searchForm">
 					<thead>
 						<tr>
@@ -19,6 +31,7 @@
 							<th>NR TEL</th>
 							<th>PESEL</th>
 							<th>KARNET</th>
+							<th>AKTYWNY</th>
 							<th>OPCJE</th>
 						</tr>
 					</thead>
@@ -27,33 +40,53 @@
 
 						   <ui:repeat var="o" value="#{userInfoBB.list}">
 							<tr>
-								<td>#{o.idKlienta}</td>
 								<td>#{o.imie}</td>
 								<td>#{o.nazwisko}</td>
 								<td>#{o.nrTel}</td>
 								<td>#{o.pesel}</td>
 								<td>
 									<ui:repeat var="s" value="#{userInfoBB.lista}" varStatus="status">
-										<h:outputText rendered="#{o.idKlienta == s.klient.idKlienta}" id="aaa" value="Mam karnet" ></h:outputText>													
+									
+								       <h:panelGroup id="results">
+								           <h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
+								              Nazwa karnetu: #{s.karnet.nazwa_karnetu}
+								              <br></br>
+								           </h:panelGroup>
+								           <h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
+								               Data rozpoczecia: #{s.data_rozpoczecia}
+								              <br></br>
+								           </h:panelGroup>
+								           <h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
+								               Data zakończenia: #{s.data_zakonczenia}
+								           </h:panelGroup>
+								       </h:panelGroup>	
+																						
 									</ui:repeat>
+
 								</td>
-								<c:if test="#{o.idKlienta ne s.klient.idKlienta}">
-									<a href="PersonListTable.xhtml" class="nav-link link login-btn">Zakup karnet</a>
-								</c:if>  
-						   		
-						
+								<td>#{o.aktywny}</td>
+								<td>
+								<a class="btn btn-warning" href="PersonEdit.xhtml">Edytuj</a>
+								&nbsp;
+								       <h:panelGroup id="resultss">
+								           <h:panelGroup rendered="#{o.aktywny == 1}">
+								              <a class="btn btn-danger" href="#">Deaktywacja</a>
+								              <br></br>
+								           </h:panelGroup>
+								           <h:panelGroup rendered="#{o.aktywny == 0}">
+								               <a class="btn btn-success" href="#">Aktywacja</a>
+								              <br></br>
+								           </h:panelGroup>
+								       </h:panelGroup>	
+								</td>
 							</tr>
-								
 						   </ui:repeat>
 
-							<td>
-								<a class="btn btn-warning" href="PersonEdit.xhtml">Edytuj</a>
-								
-								&nbsp;
-							</td>
+
 						</tr>
 					</tbody>
-				</table> 
+				</table>
+				</h:form> 
 						<c:set var = "admin" scope = "session" value = "admin"/>
 						
 						<c:if test="#{remoteClient.details.rola eq admin}">
