@@ -19,6 +19,7 @@ public class LoginBB {
 	private static final String PAGE_LOGIN = "/pages/LoginView.xhtml?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 	private static final String MAIN_PAGE = "/pages/UserInfoView.xhtml";
+	private static final String BACK_PAGE = "/pages/index.xhtml";
 
 	private String login;
 	private String haslo;
@@ -66,7 +67,12 @@ public class LoginBB {
 			return PAGE_STAY_AT_THE_SAME;
 		}
 		
-
+		if(klient.getAktywny() == 0) {
+			
+			//DODAC ERRORA
+			return BACK_PAGE;
+		}
+		
 		// 3. if logged in: get User roles, save in RemoteClient and store it in session
 		
 		RemoteClient<Klient> client = new RemoteClient<Klient>(); //create new RemoteClient

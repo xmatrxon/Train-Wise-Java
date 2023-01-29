@@ -14,15 +14,15 @@
 			    <div class="container">
 				 	<h:form class="loginForm">
 			        	<div class="mb-3">
-			            	<label for="id_login" class="form-label">Login: </label>
-							<h:inputText class="form-control" id="login" value="#{loginBB.login}" required="true" requiredMessage="podaj login"/>
+			            	<h:outputLabel for="id_login" class="form-label" value="Login:"/>
+							<h:inputText class="form-control" id="login" value="#{loginBB.login}" required="true" requiredMessage="#{txtLogin.insertLogin}"/>
 			        	</div>
 			        	<div class="mb-3">
-			            	<label for="id_pass" class="form-label">Hasło: </label>
-							<h:inputSecret class="form-control" id="pass" value="#{loginBB.haslo}" required="true" requiredMessage="podaj hasło"/>
+			        		<h:outputLabel for="id_pass" class="form-label" value="#{txtLogin.pass}:"/>
+							<h:inputSecret class="form-control" id="pass" value="#{loginBB.haslo}" required="true" requiredMessage="#{txtLogin.insertPass}"/>
 			        	</div>
-						<h:commandButton class="btn btn-primary" value="Zaloguj" action="#{loginBB.doLogin()}" update="msg" />
-						<a href="RegisterView.xhtml" class="btn btn-primary ms-5">Zarejestruj</a>
+						<h:commandButton class="btn btn-primary" value="#{txtLogin.doLogin}" action="#{loginBB.doLogin()}" update="msg" />
+						<h:link value="#{txtLogin.register}" class="btn btn-primary ms-5" outcome="RegisterView.xhtml" />
 						<h:messages />
 					</h:form>
 			   </div>

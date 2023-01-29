@@ -17,41 +17,31 @@
 			
 			<div class="container mt-5">
 				<h:form class="searchForm" rendered="#{registerBB.klient != null}">
-					<legend>Dane osoby</legend>
+					<h:outputLabel value="#{txtPersonEdit.personData}"/>
 			        <div class="mb-3">
-			            <label for="imie" class="form-label">Imie: </label>
-			            <h:inputText class="form-control" id="imie" value="#{registerBB.klient.imie}" required="true" requiredMessage="podaj imie"/>
+			            <h:outputLabel for="imie" class="form-label" value="#{txtPersonEdit.name}:"/>
+			            <h:inputText class="form-control" id="imie" value="#{registerBB.klient.imie}" required="true" requiredMessage="#{txtRegister.insertName}"/>
 			        </div>
 			        <div class="mb-3">
-			            <label for="nazwisko" class="form-label">Nazwisko: </label>
-			            <h:inputText class="form-control" id="nazwisko" value="#{registerBB.klient.nazwisko}" required="true" requiredMessage="podaj nazwisko"/>
+			            <h:outputLabel for="nazwisko" class="form-label" value="#{txtPersonEdit.surname}:"/>
+			            <h:inputText class="form-control" id="nazwisko" value="#{registerBB.klient.nazwisko}" required="true" requiredMessage="#{txtRegister.insertSurname}"/>
 			        </div>
 			        <div class="mb-3">
-			            <label for="nrtel" class="form-label">Nr. telefonu: </label>
-			            <h:inputText class="form-control" id="nrtel" value="#{remoteClient.details.nrTel}" required="true" requiredMessage="podaj nr tel"/>
+			            <h:outputLabel for="nrtel" class="form-label" value="#{txtPersonEdit.phone}:"/>
+			            <h:inputText class="form-control" id="nrtel" value="#{registerBB.klient.nrTel}" required="true" requiredMessage="#{txtRegister.insertPhone}"/>
 			        </div>
 			        <div class="mb-3">
-			            <label for="login" class="form-label">Login: </label>
-			            <h:inputText class="form-control" id="login" value="#{remoteClient.details.login}" required="true" requiredMessage="podaj login"/>
+			            <h:outputLabel for="login" class="form-label" value="Login:"/>
+			            <h:inputText class="form-control" id="login" value="#{registerBB.klient.login}" required="true" requiredMessage="#{txtRegister.insertLogin}"/>
 			        </div>
 			        <div class="mb-3">
-			            <label for="haslo" class="form-label">Hasło: </label>
-			            <h:inputSecret class="form-control" id="haslo" value="#{remoteClient.details.haslo}" required="true" requiredMessage="podaj hasło" />
+			            <h:outputLabel for="id_pass" class="form-label" value="#{txtPersonEdit.pass}:"/>
+			            <h:inputSecret class="form-control" id="haslo" value="#{registerBB.klient.haslo}" required="true" requiredMessage="#{txtRegister.insertPass}" />
 			        </div>
-					<h:commandButton value="Zapisz" class="btn btn-primary" action="#{registerBB.saveData()}"/>
-					
-						<c:set var = "admin" scope = "session" value = "admin"/>
-						<c:set var = "user" scope = "session" value = "user"/>
-						
-						<c:if test="#{remoteClient.details.rola eq admin}">
-							<a href="pages/LoginView.xhtml" class="nav-link link login-btn">Panel admina(personlist)</a>
-						</c:if>
-						<c:if test="#{remoteClient.details.rola eq user}">
-							<a href="UserInfoView.xhtml" class="nav-link link login-btn">Panel użytkownika</a>
-						</c:if>
+					<h:commandButton value="#{txtPersonEdit.save}" class="btn btn-primary" action="#{registerBB.saveData()}"/>
+					<h:messages />
 				</h:form>
-		</div>
-			
+		</div>	
 		</ui:define>
 	</ui:composition>
 </html>

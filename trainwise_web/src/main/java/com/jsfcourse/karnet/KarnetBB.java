@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -62,19 +62,16 @@ public class KarnetBB {
 		
 		Karnet karnet = karnetDAO.get(a);
 		
-		Date myObj = new java.util.Date();
-		
-		
+		Date currentDate = new java.util.Date();
+	
 		czlonkostwo.setKarnet(karnet);
 		czlonkostwo.setKlient(klient);
-		czlonkostwo.setData_rozpoczecia(myObj);
-		czlonkostwo.setData_zakonczenia(myObj);
+		czlonkostwo.setData_rozpoczecia(currentDate);
+		czlonkostwo.setData_zakonczenia(Date.from((LocalDate.now().plusMonths(1)).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
 		
 		czlonkostwoDAO.update(czlonkostwo);
 		
 		return null;
 	}
-
-
 	
 }

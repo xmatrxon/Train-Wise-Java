@@ -7,6 +7,8 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 	
+	<f:view locale="#{facesContext.externalContext.requestLocale}">
+	
 	<h:head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,26 +29,26 @@
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div class="navbar-nav ms-auto">
 						<a class="nav-link active link" href="#home">Home</a>
-						<a class="nav-link link" href="#aboutus">o siłowni</a>
-						<a class="nav-link link" href="#prices">karnety</a>
-						<a class="nav-link link" href="#achievements">osiągnięcia</a>
-						<a class="nav-link link" href="#contact">kontakt</a>
+						<a class="nav-link link" href="#aboutus">#{txtMain.aboutGym}</a>
+						<a class="nav-link link" href="#prices">#{txtMain.tickets}</a>
+						<a class="nav-link link" href="#achievements">#{txtMain.achievements}</a>
+						<a class="nav-link link" href="#contact">#{txtMain.contact}</a>
 
 						<c:set var = "admin" scope = "session" value = "admin"/>
 						<c:set var = "user" scope = "session" value = "user"/>
 						
 						<c:if test="#{remoteClient.details.rola ne admin &amp;&amp; remoteClient.details.rola ne user}">
-							<a href="pages/LoginView.xhtml" class="nav-link link login-btn">Zaloguj</a>
+							<a href="pages/LoginView.xhtml" class="nav-link link login-btn">#{txtMain.login}</a>
 						</c:if>
 						
 						<h:form class="buttonForm">
 						<c:if test="#{remoteClient.details.rola eq admin}">
-							<h:outputLink value = "UserInfoView.xhtml" class="nav-link link login-btn">Profil</h:outputLink>
-							<h:commandLink class="nav-link link login-btn" value="Wyloguj" action="#{loginBB.doLogout()}"/>	        
+							<h:outputLink value = "UserInfoView.xhtml" class="nav-link link login-btn">#{txtMain.profile}</h:outputLink>
+							<h:commandLink class="nav-link link login-btn" value="#{txtMain.logout}" action="#{loginBB.doLogout()}"/>	        
 						</c:if>
 						<c:if test="#{remoteClient.details.rola eq user}">
-							<h:outputLink value = "UserInfoView.xhtml" class="nav-link link login-btn">Profil</h:outputLink>
-							<h:commandLink class="nav-link link login-btn" value="Wyloguj" action="#{loginBB.doLogout()}"/>
+							<h:outputLink value = "UserInfoView.xhtml" class="nav-link link login-btn">#{txtMain.profile}</h:outputLink>
+							<h:commandLink class="nav-link link login-btn" value="#{txtMain.logout}" action="#{loginBB.doLogout()}"/>
 						</c:if>
 						</h:form>
 					</div>
@@ -62,4 +64,5 @@
 			<h:outputScript library="js" name="script.js" />
 		
 	</h:body>
+	</f:view>
 </html>

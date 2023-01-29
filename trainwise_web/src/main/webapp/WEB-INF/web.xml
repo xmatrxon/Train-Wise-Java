@@ -20,10 +20,10 @@
 /javax.faces.resource : PUBLIC;
 /public : PUBLIC;
 /pages/PersonEdit.xhtml : admin, user;
+/pages/PersonEditAdmin.xhtml : admin;
 /pages/UserInfoView.xhtml : admin, user;
 /pages/KarnetView.xhtml : admin, user;
 /pages/RegisterView.xhtml : PUBLIC;
-/pages/PersonListTable.xhtml : admin;
 /pages/PersonList.xhtml : admin;
 /pages/index.xhtml : PUBLIC;
 /resources/img : PUBLIC;
@@ -55,7 +55,7 @@
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 	<session-config>
-		<session-timeout>1</session-timeout>
+		<session-timeout>10</session-timeout>
 		<tracking-mode>COOKIE</tracking-mode>
 	</session-config>
 	<mime-mapping>

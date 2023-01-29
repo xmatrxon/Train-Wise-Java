@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+	<f:metadata>
+	    <f:viewAction action="#{userEditBB.onLoad()}" />
+	</f:metadata>
+	
+	 
+	<ui:composition template="/templates/main-template.xhtml">
+		<ui:define name="content">
+			
+			<div class="container mt-5">
+				<h:form class="searchForm" rendered="#{userEditBB.klient != null}">
+					<h:outputLabel value="#{txtPersonEditAdmin.personData}"/>
+			        <div class="mb-3">
+			            <h:outputLabel for="imie" class="form-label" value="#{txtPersonEditAdmin.name}:"/>
+			            <h:inputText class="form-control" id="imie" value="#{userEditBB.klient.imie}" required="true" requiredMessage="#{txtRegister.insertName}"/>
+			        </div>
+			        <div class="mb-3">
+			            <h:outputLabel for="nazwisko" class="form-label" value="#{txtPersonEditAdmin.surname}:"/>
+			            <h:inputText class="form-control" id="nazwisko" value="#{userEditBB.klient.nazwisko}" required="true" requiredMessage="#{txtRegister.insertSurname}"/>
+			        </div>
+			        <div class="mb-3">
+			            <h:outputLabel for="nrtel" class="form-label" value="#{txtPersonEditAdmin.phone}:"/>
+			            <h:inputText class="form-control" id="nrtel" value="#{userEditBB.klient.nrTel}" required="true" requiredMessage="#{txtRegister.insertPhone}"/>
+			        </div>
+			        <div class="mb-3">
+			            <h:outputLabel for="login" class="form-label" value="Login:"/>
+			            <h:inputText class="form-control" id="login" value="#{userEditBB.klient.login}" required="true" requiredMessage="#{txtRegister.insertLogin}"/>
+			        </div>
+			        <div class="mb-3">
+			            <h:outputLabel for="id_pass" class="form-label" value="#{txtPersonEditAdmin.pass}:"/>
+			            <h:inputSecret class="form-control" id="haslo" value="#{userEditBB.klient.haslo}" required="true" requiredMessage="#{txtRegister.insertPass}" />
+			        </div>
+					<h:commandButton value="#{txtPersonEditAdmin.save}" class="btn btn-primary" action="#{userEditBB.saveData()}"/>
+				</h:form>
+		</div>
+			
+		</ui:define>
+	</ui:composition>
+</html>

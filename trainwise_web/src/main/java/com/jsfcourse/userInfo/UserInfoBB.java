@@ -4,12 +4,16 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.simplesecurity.RemoteClient;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +31,10 @@ import jsf.course.enities.Karnet;
 @Named
 @RequestScoped
 public class UserInfoBB {
+	
+	private static final String PAGE_PERSON_EDIT = "PersonEditAdmin?faces-redirect=true";
+	private static final String PAGE_STAY_AT_THE_SAME = "/pages/PersonList.xhtml";
+	private static final String MAIN_PAGE = "/pages/index.xhtml";
 
 	@EJB
 	CzlonkostwoDAO czlonkostwoDAO;
@@ -35,12 +43,18 @@ public class UserInfoBB {
 	@EJB
 	KarnetDAO karnetDAO;
 	
+	@Inject
+	Flash flash;
+	
+	@Inject
+	FacesContext context;
+	
 	private Czlonkostwo czlonkostwo;
+	int a;
+	int klienta;
 	
 	FacesContext ctx = FacesContext.getCurrentInstance();
-    HttpSession session = (HttpSession) ctx.getExternalContext().getSession(false) ;
-    Integer klient = (Integer) session.getAttribute("id");
-    
+
     private String nazwisko;
     
 	public String getNazwisko() {
@@ -54,26 +68,25 @@ public class UserInfoBB {
 
 public Czlonkostwo getCzlonkostwo() {
 
-    
-
+    HttpSession session = (HttpSession) ctx.getExternalContext().getSession(false) ;
+    Integer klient = (Integer) session.getAttribute("id");
     Czlonkostwo czlonkostwo = czlonkostwoDAO.getFullList(klient);
-
-    
-//    Czlonkostwo czlonkostwo = czlonkostwoDAO.getSth(klient);
-//    
-//    
-//   
-//    System.out.println(czlonkostwo.getID_czlonkostwa());
-    
-    
-    
+     
     if (czlonkostwo == null) {
         ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                 "Brak wyników", null));
     }
+    
+
+    if(czlonkostwo !=null) {
+        Date karnetData = czlonkostwo.getData_zakonczenia();
+        Date currentDate = new java.util.Date();
+        if (karnetData.compareTo(currentDate) < 0) {
+        	czlonkostwoDAO.delete(czlonkostwo);
+        }    	
+    }
+    
     return czlonkostwo;
-
-
 }
 
 public Karnet getKarnet() {
@@ -101,6 +114,30 @@ public List<Czlonkostwo> getLista() {
 	return czlonkostwoDAO.getLista();
 	
 }
+
+public String editPerson(Klient klientt) {
 	
+      HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true) ;
+      session.setAttribute("klientt",klientt);
+
+	return PAGE_PERSON_EDIT;
+}
+
+public String deactivePerson(Klient klient) {
+	
+	klient.setAktywny((byte) 0);
+	klientDAO.update(klient);
+	
+	return null;
+}
+
+public String activatePerson(Klient klient) {
+	
+	klient.setAktywny((byte) 1);
+	klientDAO.update(klient);
+	
+	return null;
+}
+
 	
 }

@@ -14,31 +14,31 @@
 			    <div class="container">
 			        <h:form class="loginForm">
 			        <div class="mb-3">
-			            <label for="imie" class="form-label">Imie: </label>
-			            <h:inputText class="form-control" id="imie" value="#{registerBB.imie}" required="true" requiredMessage="podaj imie"/>
+			        	<h:outputLabel for="imie" class="form-label" value="#{txtRegister.name}:"/>
+			            <h:inputText class="form-control" id="imie" value="#{registerBB.imie}" required="true" requiredMessage="#{txtRegister.insertName}"/>
 			        </div>
 			        <div class="mb-3">
-			            <label for="nazwisko" class="form-label">Nazwisko: </label>
-			            <h:inputText class="form-control" id="nazwisko" value="#{registerBB.nazwisko}" required="true" requiredMessage="podaj nazwisko"/>
+			        	<h:outputLabel for="nazwisko" class="form-label" value="#{txtRegister.surname}:"/>
+			            <h:inputText class="form-control" id="nazwisko" value="#{registerBB.nazwisko}" required="true" requiredMessage="#{txtRegister.insertSurname}"/>
 			        </div>
 			        <div class="mb-3">
-			            <label for="nrtel" class="form-label">Nr. telefonu: </label>
-			            <h:inputText class="form-control" id="nrtel" value="#{registerBB.nrTel}" required="true" requiredMessage="podaj nr tel"/>
+			       		<h:outputLabel for="nrtel" class="form-label" value="#{txtRegister.phone}:"/>
+			            <h:inputText class="form-control" id="nrtel" value="#{registerBB.nrTel}" required="true" requiredMessage="#{txtRegister.insertPhone}"/>
 			        </div>
 			        <div class="mb-3">
-			            <label for="pesel" class="form-label">PESEL: </label>
-			            <h:inputText class="form-control" id="pesel" value="#{registerBB.pesel}" required="true" requiredMessage="podaj pesel"/>
+			        	<h:outputLabel for="pesel" class="form-label" value="PESEL:"/>
+			            <h:inputText class="form-control" id="pesel" value="#{registerBB.pesel}" required="true" requiredMessage="#{txtRegister.insertPESEL}"/>
 			        </div>
 			        <div class="mb-3">
-			            <label for="login" class="form-label">Login: </label>
-			            <h:inputText class="form-control" id="login" value="#{registerBB.login}" required="true" requiredMessage="podaj login"/>
+			       		<h:outputLabel for="login" class="form-label" value="Login:"/>
+			            <h:inputText class="form-control" id="login" value="#{registerBB.login}" required="true" requiredMessage="#{txtRegister.insertLogin}"/>
 			        </div>
 			        <div class="mb-3">
-			            <label for="id_pass" class="form-label">Hasło: </label>
-			            <h:inputSecret class="form-control" id="pass" value="#{registerBB.haslo}" required="true" requiredMessage="podaj hasło"/>
+			        	<h:outputLabel for="id_pass" class="form-label" value="#{txtRegister.pass}:"/>
+			            <h:inputSecret class="form-control" id="pass" value="#{registerBB.haslo}" required="true" requiredMessage="#{txtRegister.insertPass}"/>
 			        </div>
-			        <h:commandButton value="Zarejestruj" class="btn btn-primary" action="#{registerBB.doRegister()}"/>
-			         <!-- <h:inputHidden name="id" value="{$form->id}"/>-->
+			        <h:commandButton value="#{txtRegister.register}" class="btn btn-primary" action="#{registerBB.doRegister()}" update="msg"/>
+			        <h:messages />
 			        </h:form>
 			    </div>
 			</section>

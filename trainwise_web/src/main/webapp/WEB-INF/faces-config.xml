@@ -3,4 +3,45 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd">
+	 <application>
+  <resource-bundle>
+   <base-name>resources.textLogin</base-name>
+   <var>txtLogin</var>
+  </resource-bundle>
+    <resource-bundle>
+   <base-name>resources.textRegister</base-name>
+   <var>txtRegister</var>
+  </resource-bundle>
+      <resource-bundle>
+   <base-name>resources.textUserInfo</base-name>
+   <var>txtUserInfo</var>
+  </resource-bundle>
+        <resource-bundle>
+   <base-name>resources.textPersonList</base-name>
+   <var>txtPersonList</var>
+  </resource-bundle>
+          <resource-bundle>
+   <base-name>resources.textPersonEditAdmin</base-name>
+   <var>txtPersonEditAdmin</var>
+  </resource-bundle>
+            <resource-bundle>
+   <base-name>resources.textPersonEdit</base-name>
+   <var>txtPersonEdit</var>
+  </resource-bundle>
+              <resource-bundle>
+   <base-name>resources.textKarnet</base-name>
+   <var>txtKarnet</var>
+  </resource-bundle>
+                <resource-bundle>
+   <base-name>resources.textMain</base-name>
+   <var>txtMain</var>
+  </resource-bundle>
+                  <resource-bundle>
+   <base-name>resources.textIndex</base-name>
+   <var>txtIndex</var>
+  </resource-bundle>
+  <locale-config>
+   <default-locale>pl</default-locale>
+  </locale-config>
+ </application>
 </faces-config>

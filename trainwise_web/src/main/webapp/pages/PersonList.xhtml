@@ -12,12 +12,12 @@
 
 			<div class="container mt-5">
 			<h:form id="search-form" class="searchForm">
-				<legend>Opcje wyszukiwania</legend>
+				<h:outputLabel value="#{txtPersonList.searchOptions}"/>
 				  <div class="mb-3">
-				    <label for="nazwisko" class="form-label">Nazwisko</label>
-				    <h:inputText class="form-control"  id="nazwisko" value="#{userInfoBB.nazwisko}"/>
+				    <h:outputLabel for="nazwisko" class="form-label" value="#{txtPersonList.surname}"/>
+				    <p:inputText class="form-control"  id="nazwisko" value="#{userInfoBB.nazwisko}"><p:ajax event="input" update="form-table" listener="#{userInfoBB.getList()}" execute="@form"/></p:inputText>
 				  </div>
-				  <h:commandButton class="btn btn-primary" value="Filtruj" update="form-table"/>
+				  <h:commandButton class="btn btn-primary" value="#{txtPersonList.filter}" update="form-table"/>
 			</h:form>	
 			</div>
 
@@ -26,13 +26,13 @@
 				<table id="tab_people" class="table searchForm">
 					<thead>
 						<tr>
-							<th>IMIE</th>
-							<th>NAZWISKO</th>
-							<th>NR TEL</th>
+							<th>#{txtPersonList.name}</th>
+							<th>#{txtPersonList.surname}</th>
+							<th>#{txtPersonList.phone}</th>
 							<th>PESEL</th>
-							<th>KARNET</th>
-							<th>AKTYWNY</th>
-							<th>OPCJE</th>
+							<th>#{txtPersonList.ticket}</th>
+							<th>#{txtPersonList.active}</th>
+							<th>#{txtPersonList.options}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,15 +49,15 @@
 									
 								       <h:panelGroup id="results">
 								           <h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
-								              Nazwa karnetu: #{s.karnet.nazwa_karnetu}
+								              #{txtPersonList.ticketName}: #{s.karnet.nazwa_karnetu}
 								              <br></br>
 								           </h:panelGroup>
 								           <h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
-								               Data rozpoczecia: #{s.data_rozpoczecia}
+								               #{txtPersonList.beginDate}: #{s.data_rozpoczecia}
 								              <br></br>
 								           </h:panelGroup>
 								           <h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
-								               Data zakończenia: #{s.data_zakonczenia}
+								               #{txtPersonList.endingDate}: #{s.data_zakonczenia}
 								           </h:panelGroup>
 								       </h:panelGroup>	
 																						
@@ -66,49 +66,27 @@
 								</td>
 								<td>#{o.aktywny}</td>
 								<td>
-								<a class="btn btn-warning" href="PersonEdit.xhtml">Edytuj</a>
+								<h:commandButton class="btn btn-warning" value=" #{txtPersonList.edit}" action="#{userInfoBB.editPerson(o)}" />
+								
 								&nbsp;
 								       <h:panelGroup id="resultss">
 								           <h:panelGroup rendered="#{o.aktywny == 1}">
-								              <a class="btn btn-danger" href="#">Deaktywacja</a>
+								           <h:commandButton class="btn btn-danger" value="#{txtPersonList.deactivate}" action="#{userInfoBB.deactivePerson(o)}" />
 								              <br></br>
 								           </h:panelGroup>
 								           <h:panelGroup rendered="#{o.aktywny == 0}">
-								               <a class="btn btn-success" href="#">Aktywacja</a>
+								           <h:commandButton class="btn btn-success" value="#{txtPersonList.activate}" action="#{userInfoBB.activatePerson(o)}" />
 								              <br></br>
 								           </h:panelGroup>
 								       </h:panelGroup>	
 								</td>
 							</tr>
 						   </ui:repeat>
-
-
 						</tr>
 					</tbody>
 				</table>
-				</h:form> 
-						<c:set var = "admin" scope = "session" value = "admin"/>
-						
-						<c:if test="#{remoteClient.details.rola eq admin}">
-							<a href="PersonListTable.xhtml" class="nav-link link login-btn">Panel admina</a>
-						</c:if>                                                                
+				</h:form>                                                                 
 			</div>
-
-<!--  
-<table>
-
-   <ui:repeat var="o" value="#{userInfoBB.list}">
-	
-	<tr>
-		<td>#{o.imie}</td>
-	</tr>
-		
-   </ui:repeat>
-   
-    			
-</table>
--->
-
 		</ui:define>
 	</ui:composition>
 </html>

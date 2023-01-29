@@ -18,36 +18,36 @@
 							<div class="price-box">
 								<h3>student</h3>
 								<hr />
-								<p><span>Ilość użytkowników:</span><i class="fas fa-person"></i></p>
-								<p><span>Ilość wejść:</span> Raz dziennie</p>
-								<p><span>Czas pobytu:</span> Godzina</p>
-								<p><span>Wstęp do sauny:</span> Tak</p>
+								<p><span>#{txtKarnet.amountOfUsers}:</span><i class="fas fa-person"></i></p>
+								<p><span>#{txtKarnet.numberOfEntrences}:</span> #{txtKarnet.onceADay}</p>
+								<p><span>#{txtKarnet.time}:</span> #{txtKarnet.hour}</p>
+								<p><span>#{txtKarnet.sauna}:</span> #{txtKarnet.yes}</p>
 								<p class="price-tag">119zł</p>
-								<h:commandButton name="student" class="btn btn-secondary" value="ZAMAWIAM" action="#{karnetBB.buyKarnet(1)}"/>
+								<h:commandButton name="student" class="btn btn-secondary" value="#{txtKarnet.order}" action="#{karnetBB.buyKarnet(1)}"/>
 							</div>
 						</div>
 						<div class="col-md-6 col-xl-4">
 							<div class="price-box">
-								<h3>normalny</h3>
+								<h3>#{txtKarnet.ticketNormal}</h3>
 								<hr />
-								<p><span>Ilość użytkowników:</span><i class="fas fa-person"></i></p>
-								<p><span>Ilość wejść:</span> Raz dziennie</p>
-								<p><span>Czas pobytu:</span> Bez limitu</p>
-								<p><span>Wstęp do sauny:</span> Tak</p>
+								<p><span>#{txtKarnet.amountOfUsers}:</span><i class="fas fa-person"></i></p>
+								<p><span>#{txtKarnet.numberOfEntrences}:</span> #{txtKarnet.onceADay}</p>
+								<p><span>#{txtKarnet.time}:</span> #{txtKarnet.noLimit}</p>
+								<p><span>#{txtKarnet.sauna}:</span> #{txtKarnet.yes}</p>
 								<p class="price-tag">159zł</p>
-								<h:commandButton name="normalny" class="btn btn-success" value="ZAMAWIAM" action="#{karnetBB.buyKarnet(2)}"/>
+								<h:commandButton name="normalny" class="btn btn-success" value="#{txtKarnet.order}" action="#{karnetBB.buyKarnet(2)}"/>
 							</div>
 						</div>
 						<div class="col-md-6 col-xl-4">
 							<div class="price-box">
 								<h3>premium</h3>
 								<hr />
-								<p><span>Ilość użytkowników:</span><i class="fas fa-children"></i></p>
-								<p><span>Ilość wejść:</span> Nieograniczona</p>
-								<p><span>Czas pobytu:</span> Bez limitu</p>
-								<p><span>Wstęp do sauny:</span> Tak</p>
+								<p><span>#{txtKarnet.amountOfUsers}:</span><i class="fas fa-children"></i></p>
+								<p><span>#{txtKarnet.numberOfEntrences}:</span> #{txtKarnet.noLimit}</p>
+								<p><span>#{txtKarnet.time}:</span> #{txtKarnet.noLimit}</p>
+								<p><span>#{txtKarnet.sauna}:</span> #{txtKarnet.yes}</p>
 								<p class="price-tag">299zł</p>
-								<h:commandButton name="premium" class="btn btn-secondary" value="ZAMAWIAM" action="#{karnetBB.buyKarnet(3)}"/>
+								<h:commandButton name="premium" class="btn btn-secondary" value="#{txtKarnet.order}" action="#{karnetBB.buyKarnet(3)}"/>
 							</div>
 						</div>
 					</div>

@@ -14,12 +14,12 @@
 				<table id="tab_people" class="table searchForm">
 					<thead>
 						<tr>
-							<th>IMIE</th>
-							<th>NAZWISKO</th>
-							<th>NR TEL</th>
+							<th>#{txtUserInfo.name}</th>
+							<th>#{txtUserInfo.surname}</th>
+							<th>#{txtUserInfo.phone}</th>
 							<th>PESEL</th>
-							<th>KARNET</th>
-							<th>OPCJE</th>
+							<th>#{txtUserInfo.ticket}</th>
+							<th>#{txtUserInfo.options}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -28,30 +28,28 @@
 							<td>#{remoteClient.details.nazwisko}</td>
 							<td>#{remoteClient.details.nrTel}</td>
 							<td>#{remoteClient.details.pesel}</td>
-							<td>
-						   			
-								<c:if test="#{userInfoBB.czlonkostwo.klient.idKlienta ne null}">
-									<c:if test="#{userInfoBB.czlonkostwo.karnet.ID_karnetu eq 1}">
-										<p> Nazwa karnetu: STUDENT</p>
-									</c:if>
-									<c:if test="#{userInfoBB.czlonkostwo.karnet.ID_karnetu eq 2}">
-										<p> Nazwa karnetu: NORMALNY</p>
-									</c:if>
-									<c:if test="#{userInfoBB.czlonkostwo.karnet.ID_karnetu eq 3}">
-										<p> Nazwa karnetu: PREMIUM</p>
-									</c:if>
-									<p> Od: #{userInfoBB.czlonkostwo.data_rozpoczecia}</p>
-									<p> Do: #{userInfoBB.czlonkostwo.data_zakonczenia}</p>
-									
-								</c:if>
-								<c:if test="#{userInfoBB.czlonkostwo.klient.idKlienta eq null}">
-									<a href="KarnetView.xhtml" class="nav-link link login-btn">Zakup karnet</a>
-								</c:if>  
-						   		
+							<td>						
+								<h:panelGroup id="results">
+									<h:panelGroup rendered="#{userInfoBB.czlonkostwo.karnet.ID_karnetu eq 1}">
+								    	<p> #{txtUserInfo.ticketName}: STUDENT</p>
+								     </h:panelGroup>
+								     <h:panelGroup rendered="#{userInfoBB.czlonkostwo.karnet.ID_karnetu eq 2}">
+								     	<p> #{txtUserInfo.ticketName}: #{txtUserInfo.ticketNormal}</p>
+								     </h:panelGroup>
+								     <h:panelGroup rendered="#{userInfoBB.czlonkostwo.karnet.ID_karnetu eq 3}">
+								      	<p> #{txtUserInfo.ticketName}: PREMIUM</p>
+								     </h:panelGroup>
+								     <h:panelGroup rendered="#{userInfoBB.czlonkostwo.klient.idKlienta ne null}">
+										<p> #{txtUserInfo.from}: #{userInfoBB.czlonkostwo.data_rozpoczecia}</p>
+										<p> #{txtUserInfo.to}: #{userInfoBB.czlonkostwo.data_zakonczenia}</p>
+								     </h:panelGroup>
+								     <h:panelGroup rendered="#{userInfoBB.czlonkostwo.klient.idKlienta eq null}">
+								     	<h:link value="#{txtUserInfo.buyTicket}" class="nav-link link login-btn" outcome="KarnetView.xhtml" />
+								     </h:panelGroup>
+								</h:panelGroup>     
 							</td>				
 							<td>
-								<a class="btn btn-warning" href="PersonEdit.xhtml">Edytuj</a>
-								
+								<h:link value="#{txtUserInfo.edit}" class="btn btn-warning" outcome="PersonEdit.xhtml" />
 								&nbsp;
 							</td>
 						</tr>
@@ -60,8 +58,7 @@
 						<c:set var = "admin" scope = "session" value = "admin"/>
 						
 						<c:if test="#{remoteClient.details.rola eq admin}">
-							<a href="PersonListTable.xhtml" class="nav-link link login-btn">Panel admina</a>
-							<a href="PersonList.xhtml" class="nav-link link login-btn">Personlist</a>
+							<h:link value="#{txtUserInfo.personList}" class="nav-link link login-btn" outcome="PersonList.xhtml" />
 						</c:if>                                                                
 			</div>
 		

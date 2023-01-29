@@ -163,8 +163,6 @@ public class RegisterBB implements Serializable {
 		return MAIN_PAGE;
 	}
 	
-
-	
 	public String updateUser() {
 	Klient klient = new Klient();
 	
@@ -172,5 +170,4 @@ public class RegisterBB implements Serializable {
 		
 		return MAIN_PAGE;
 	}
-	
 }
