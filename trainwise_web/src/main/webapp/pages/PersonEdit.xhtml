@@ -16,30 +16,34 @@
 		<ui:define name="content">
 			
 			<div class="container mt-5">
-				<h:form class="searchForm" rendered="#{registerBB.klient != null}">
+				<h:form class="searchForm" rendered="#{registerBB.klient != null}" id="search-form">
 					<h:outputLabel value="#{txtPersonEdit.personData}"/>
 			        <div class="mb-3">
 			            <h:outputLabel for="imie" class="form-label" value="#{txtPersonEdit.name}:"/>
-			            <h:inputText class="form-control" id="imie" value="#{registerBB.klient.imie}" required="true" requiredMessage="#{txtRegister.insertName}"/>
+			            <h:inputText class="form-control" id="imie" value="#{registerBB.klient.imie}" required="true" requiredMessage="#{txtRegister.insertName}" validatorMessage="#{txtRegister.nameLength}">
+			            	<f:validateRegex pattern="[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]*"/>
+			            	<f:validateLength minimum = "3" maximum = "50" />         
+			            </h:inputText>
 			        </div>
 			        <div class="mb-3">
 			            <h:outputLabel for="nazwisko" class="form-label" value="#{txtPersonEdit.surname}:"/>
-			            <h:inputText class="form-control" id="nazwisko" value="#{registerBB.klient.nazwisko}" required="true" requiredMessage="#{txtRegister.insertSurname}"/>
-			        </div>
-			        <div class="mb-3">
-			            <h:outputLabel for="nrtel" class="form-label" value="#{txtPersonEdit.phone}:"/>
-			            <h:inputText class="form-control" id="nrtel" value="#{registerBB.klient.nrTel}" required="true" requiredMessage="#{txtRegister.insertPhone}"/>
-			        </div>
-			        <div class="mb-3">
-			            <h:outputLabel for="login" class="form-label" value="Login:"/>
-			            <h:inputText class="form-control" id="login" value="#{registerBB.klient.login}" required="true" requiredMessage="#{txtRegister.insertLogin}"/>
+			            <h:inputText class="form-control" id="nazwisko" value="#{registerBB.klient.nazwisko}" required="true" requiredMessage="#{txtRegister.insertSurname}" validatorMessage="#{txtRegister.surnameLength}">
+			            	<f:validateRegex pattern="[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]*"/>
+			            	<f:validateLength minimum = "3" maximum = "50" />
+			            </h:inputText>
 			        </div>
 			        <div class="mb-3">
 			            <h:outputLabel for="id_pass" class="form-label" value="#{txtPersonEdit.pass}:"/>
-			            <h:inputSecret class="form-control" id="haslo" value="#{registerBB.klient.haslo}" required="true" requiredMessage="#{txtRegister.insertPass}" />
+			            <h:inputSecret class="form-control" id="haslo" value="#{registerBB.klient.haslo}" required="true" requiredMessage="#{txtRegister.insertPass}" validatorMessage="#{txtRegister.passLength}">
+			            	<f:validateLength minimum = "3" maximum = "50" />
+			            </h:inputSecret>
 			        </div>
-					<h:commandButton value="#{txtPersonEdit.save}" class="btn btn-primary" action="#{registerBB.saveData()}"/>
-					<h:messages />
+			        <h:commandButton value="#{txtPersonEdit.save}" class="btn btn-primary" action="#{registerBB.saveData()}">
+			        	<f:ajax execute="@form" render="msgs" />
+			        </h:commandButton>
+			        <p:messages id="msgs" closable="false">
+            			<p:autoUpdate/>
+        			</p:messages>
 				</h:form>
 		</div>	
 		</ui:define>

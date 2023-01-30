@@ -1,21 +1,16 @@
 package com.jsfcourse.register;
 
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
-import javax.faces.simplesecurity.RemoteClient;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 
 import jsf.course.dao.KlientDAO;
 import jsf.course.enities.Klient;
@@ -26,10 +21,11 @@ import jsf.course.enities.Klient;
 public class RegisterBB implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String MAIN_PAGE = "/pages/index.xhtml";
+	private static final String MAIN_PAGE = "index?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
 	
 	private Klient klient = new Klient();
+	private Klient ifEgsists;
 	
 	private String imie;
 	private String nazwisko;
@@ -146,6 +142,23 @@ public class RegisterBB implements Serializable {
 	public String doRegister() {
 		FacesContext ctx = FacesContext.getCurrentInstance();
 		
+		ifEgsists = klientDAO.checkIfEgsists(login, pesel, nrTel);
+		
+		if(ifEgsists != null) {
+			
+			if(ifEgsists.getLogin().equals(login)) {
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ten login jest już zajęty", null));				
+			}
+			if(ifEgsists.getPesel().equals(pesel)) {
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Podany PESEL znajduje się już w bazie danych", null));	
+			}
+			if(ifEgsists.getNrTel().equals(nrTel)) {
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Podany numer telefonu znajduje się już w bazie danych", null));	
+			}
+
+			
+			return PAGE_STAY_AT_THE_SAME;
+		}
 		
 		Klient klient = new Klient();
 		

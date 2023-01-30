@@ -27,9 +27,8 @@ public class UserEditBB implements Serializable{
 	@Inject
 	FacesContext context;
 	
-	private static final String MAIN_PAGE = "/pages/index.xhtml";
+	private static final String PERSON_LIST = "PersonList?faces-redirect=true";
 	private static final String PAGE_STAY_AT_THE_SAME = null;
-	private static final String PAGE_PERSON_EDIT = "/pages/PersonEditAdmin.xhtml";
 
 	private Klient klient = new Klient();
 	private Klient loaded = null;
@@ -40,7 +39,6 @@ public class UserEditBB implements Serializable{
 		return klient;
 	}
 	
-
 	public void onLoad() throws IOException {
 		
 	      HttpSession session = (HttpSession) ctx.getExternalContext().getSession(true) ;
@@ -70,7 +68,7 @@ public class UserEditBB implements Serializable{
 			return PAGE_STAY_AT_THE_SAME;
 		}
 
-		return MAIN_PAGE;
+		return PERSON_LIST;
 	}
 	
 }

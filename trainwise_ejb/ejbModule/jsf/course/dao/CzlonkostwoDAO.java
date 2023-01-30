@@ -4,11 +4,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 import jsf.course.enities.Czlonkostwo;
-import jsf.course.enities.Klient;
 import jsf.course.dao.CzlonkostwoDAO;
 
 
@@ -54,22 +52,5 @@ public class CzlonkostwoDAO {
 			e.printStackTrace();
 		}
 		return lista;
-	}
-	
-	
-//	public Czlonkostwo  getSth(Object klient) {
-//		Query query = em.createQuery("SELECT u FROM Czlonkostwo u WHERE u.klient = :klient");
-//		query.setParameter("klient", klient);
-//
-//		try {
-//			return (Czlonkostwo) query.getResultList().get(0);
-//		} catch (Exception e) {	}
-//		
-//		return null;
-//	}
-	
-	public Czlonkostwo getCzlonkostwo(Object klient) {
-		return em.find(Czlonkostwo.class, klient);
-	}
-		
+	}		
 	}

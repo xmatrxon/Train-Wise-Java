@@ -1,13 +1,10 @@
 package jsf.course.dao;
 
 import javax.ejb.Stateless;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.servlet.http.HttpSession;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +44,20 @@ public class KlientDAO {
 		return null;
 	}
 	
-	public List<Klient> getList(Map<String, Object> searchParams) {
+	public Klient checkIfEgsists(String login, String pesel, String nrTel) {
+		Query query = em.createQuery("SELECT u FROM Klient u WHERE u.login like :login OR u.pesel LIKE :pesel OR u.nrTel LIKE :nrTel");
+		query.setParameter("login", login);
+		query.setParameter("pesel", pesel);
+		query.setParameter("nrTel", nrTel);
+		
+		try {
+			return (Klient) query.getResultList().get(0);
+		} catch (Exception e) {	}
+		
+		return null;
+	}
+	
+	public List<Klient> getList(int first, int pageSize, Map<String, Object> searchParams) {
 		List<Klient> listt = null;
 
 		String select = "select u ";
@@ -70,6 +80,9 @@ public class KlientDAO {
 		if (nazwisko != null) {
 			query.setParameter("nazwisko", nazwisko+"%");
 		}
+		
+		query.setFirstResult(first);
+		query.setMaxResults(pageSize);
 
 		try {
 			listt = query.getResultList();
@@ -78,6 +91,31 @@ public class KlientDAO {
 		}
 
 		return listt;
+	}
+	
+	public Integer getFull(Map<String, Object> searchParams) {
+		
+		String nazwisko = (String) searchParams.get("nazwisko");
+		
+		String select = "select u ";
+		String from = "from Klient u ";
+		String where = "";
+		
+		if (nazwisko != null) {
+			where += "where nazwisko like :nazwisko ";
+		}
+			
+		Query query = em.createQuery(select + from + where);
+		
+		if (nazwisko != null) {
+			query.setParameter("nazwisko", nazwisko+"%");
+		}
+       
+        try {
+            return (Integer) query.getResultList().size();
+        } catch (Exception e) {    }
+
+        return null;
 	}
 	
 	public Klient getClientInfo(Object klient) {

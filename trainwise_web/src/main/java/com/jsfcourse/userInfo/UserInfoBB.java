@@ -1,18 +1,19 @@
 package com.jsfcourse.userInfo;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
-import javax.faces.simplesecurity.RemoteClient;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.io.IOException;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortMeta;
+import org.primefaces.model.FilterMeta;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,12 +30,12 @@ import jsf.course.enities.Karnet;
 
 
 @Named
-@RequestScoped
-public class UserInfoBB {
+@ViewScoped
+public class UserInfoBB implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private static final String PAGE_PERSON_EDIT = "PersonEditAdmin?faces-redirect=true";
-	private static final String PAGE_STAY_AT_THE_SAME = "/pages/PersonList.xhtml";
-	private static final String MAIN_PAGE = "/pages/index.xhtml";
 
 	@EJB
 	CzlonkostwoDAO czlonkostwoDAO;
@@ -49,11 +50,16 @@ public class UserInfoBB {
 	@Inject
 	FacesContext context;
 	
-	private Czlonkostwo czlonkostwo;
 	int a;
 	int klienta;
 	
 	FacesContext ctx = FacesContext.getCurrentInstance();
+	
+	Map<String,Object> searchParams = new HashMap<String, Object>();
+	
+	private LazyDataModel<Klient> lazyModelKlient;
+	
+	List<Klient> list = null;
 
     private String nazwisko;
     
@@ -64,8 +70,11 @@ public class UserInfoBB {
 	public void setNazwisko(String nazwisko) {
 		this.nazwisko = nazwisko;
 	}
-    
-
+	
+	public LazyDataModel<Klient> getLazyModelKlient() {
+		return lazyModelKlient;
+	}
+	
 public Czlonkostwo getCzlonkostwo() {
 
     HttpSession session = (HttpSession) ctx.getExternalContext().getSession(false) ;
@@ -93,20 +102,6 @@ public Karnet getKarnet() {
 	
 	Karnet karnet = karnetDAO.getFullKarnet();	
 	return karnet;
-}
-
-public List<Klient> getList(){
-	List<Klient> list = null;
-	
-	Map<String,Object> searchParams = new HashMap<String, Object>();
-	
-	if (nazwisko != null && nazwisko.length() > 0){
-		searchParams.put("nazwisko", nazwisko);
-	}
-	
-	list = klientDAO.getList(searchParams);
-	
-	return list;
 }
 
 public List<Czlonkostwo> getLista() {
@@ -139,5 +134,34 @@ public String activatePerson(Klient klient) {
 	return null;
 }
 
+@PostConstruct
+
+public void init() {
 	
+	if (nazwisko != null && nazwisko.length() > 0){
+		searchParams.put("nazwisko", nazwisko);
+	}
+	else {
+		searchParams.clear();
+	}
+	
+	this.lazyModelKlient = new LazyDataModel<Klient>( ) {
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		
+		public List<Klient> load(int first, int pageSize, Map<String, SortMeta> sort, Map<String, FilterMeta> filter) {
+			setRowCount(klientDAO.getFull(searchParams));
+			
+			list = klientDAO.getList(first, pageSize, searchParams);
+			
+			if (list == null) {
+				ctx.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Brak wyników", null));				
+			}
+						
+			return list;
+		}
+	};
+}
 }

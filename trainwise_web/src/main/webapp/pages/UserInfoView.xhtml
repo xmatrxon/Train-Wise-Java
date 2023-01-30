@@ -44,12 +44,12 @@
 										<p> #{txtUserInfo.to}: #{userInfoBB.czlonkostwo.data_zakonczenia}</p>
 								     </h:panelGroup>
 								     <h:panelGroup rendered="#{userInfoBB.czlonkostwo.klient.idKlienta eq null}">
-								     	<h:link value="#{txtUserInfo.buyTicket}" class="nav-link link login-btn" outcome="KarnetView.xhtml" />
+								     	<h:link value="#{txtUserInfo.buyTicket}" class="nav-link link login-btn" outcome="KarnetView?faces-redirect=true" />
 								     </h:panelGroup>
 								</h:panelGroup>     
 							</td>				
 							<td>
-								<h:link value="#{txtUserInfo.edit}" class="btn btn-warning" outcome="PersonEdit.xhtml" />
+								<h:link value="#{txtUserInfo.edit}" class="btn btn-warning" outcome="PersonEdit?faces-redirect=true" />
 								&nbsp;
 							</td>
 						</tr>
@@ -58,7 +58,7 @@
 						<c:set var = "admin" scope = "session" value = "admin"/>
 						
 						<c:if test="#{remoteClient.details.rola eq admin}">
-							<h:link value="#{txtUserInfo.personList}" class="nav-link link login-btn" outcome="PersonList.xhtml" />
+							<h:link value="#{txtUserInfo.personList}" class="btn btn-primary ms-5" outcome="PersonList?faces-redirect=true" />
 						</c:if>                                                                
 			</div>
 		

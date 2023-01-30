@@ -15,7 +15,7 @@
 				<h:outputLabel value="#{txtPersonList.searchOptions}"/>
 				  <div class="mb-3">
 				    <h:outputLabel for="nazwisko" class="form-label" value="#{txtPersonList.surname}"/>
-				    <p:inputText class="form-control"  id="nazwisko" value="#{userInfoBB.nazwisko}"><p:ajax event="input" update="form-table" listener="#{userInfoBB.getList()}" execute="@form"/></p:inputText>
+				    <p:inputText class="form-control"  id="nazwisko" value="#{userInfoBB.nazwisko}"><p:ajax event="input" update="form-table" listener="#{userInfoBB.init()}" execute="@form"/></p:inputText>
 				  </div>
 				  <h:commandButton class="btn btn-primary" value="#{txtPersonList.filter}" update="form-table"/>
 			</h:form>	
@@ -23,68 +23,53 @@
 
 			<div class="container mt-5 mb-5">
 				<h:form id="form-table">
-				<table id="tab_people" class="table searchForm">
-					<thead>
-						<tr>
-							<th>#{txtPersonList.name}</th>
-							<th>#{txtPersonList.surname}</th>
-							<th>#{txtPersonList.phone}</th>
-							<th>PESEL</th>
-							<th>#{txtPersonList.ticket}</th>
-							<th>#{txtPersonList.active}</th>
-							<th>#{txtPersonList.options}</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-
-						   <ui:repeat var="o" value="#{userInfoBB.list}">
-							<tr>
-								<td>#{o.imie}</td>
-								<td>#{o.nazwisko}</td>
-								<td>#{o.nrTel}</td>
-								<td>#{o.pesel}</td>
-								<td>
-									<ui:repeat var="s" value="#{userInfoBB.lista}" varStatus="status">
-									
-								       <h:panelGroup id="results">
-								           <h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
-								              #{txtPersonList.ticketName}: #{s.karnet.nazwa_karnetu}
-								              <br></br>
-								           </h:panelGroup>
-								           <h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
-								               #{txtPersonList.beginDate}: #{s.data_rozpoczecia}
-								              <br></br>
-								           </h:panelGroup>
-								           <h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
-								               #{txtPersonList.endingDate}: #{s.data_zakonczenia}
-								           </h:panelGroup>
-								       </h:panelGroup>	
-																						
-									</ui:repeat>
-
-								</td>
-								<td>#{o.aktywny}</td>
-								<td>
-								<h:commandButton class="btn btn-warning" value=" #{txtPersonList.edit}" action="#{userInfoBB.editPerson(o)}" />
-								
-								&nbsp;
-								       <h:panelGroup id="resultss">
-								           <h:panelGroup rendered="#{o.aktywny == 1}">
-								           <h:commandButton class="btn btn-danger" value="#{txtPersonList.deactivate}" action="#{userInfoBB.deactivePerson(o)}" />
-								              <br></br>
-								           </h:panelGroup>
-								           <h:panelGroup rendered="#{o.aktywny == 0}">
-								           <h:commandButton class="btn btn-success" value="#{txtPersonList.activate}" action="#{userInfoBB.activatePerson(o)}" />
-								              <br></br>
-								           </h:panelGroup>
-								       </h:panelGroup>	
-								</td>
-							</tr>
-						   </ui:repeat>
-						</tr>
-					</tbody>
-				</table>
+					<p:dataTable id="tab_people" class="table searchForm" var="o" value="#{userInfoBB.lazyModelKlient}" paginator="true" rows="5" paginatorPosition="bottom">
+						<p:column headerText="#{txtPersonList.name}">
+							<h:outputText value="#{o.imie}" />
+						</p:column>
+						<p:column headerText="#{txtPersonList.surname}">
+							<h:outputText value="#{o.nazwisko}" />
+						</p:column>
+						<p:column headerText="#{txtPersonList.phone}">
+							<h:outputText value="#{o.nrTel}" />
+						</p:column>
+						<p:column headerText="PESEL">
+							<h:outputText value="#{o.pesel}" />
+						</p:column>
+						<p:column headerText="#{txtPersonList.ticket}">
+							<ui:repeat var="s" value="#{userInfoBB.lista}" varStatus="status">
+								<h:panelGroup id="results">
+									<h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
+										#{txtPersonList.ticketName}: #{s.karnet.nazwa_karnetu}
+									    <br></br>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
+									    #{txtPersonList.beginDate}: #{s.data_rozpoczecia}
+									    <br></br>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{o.idKlienta == s.klient.idKlienta}">
+									    #{txtPersonList.endingDate}: #{s.data_zakonczenia}
+									</h:panelGroup>
+								</h:panelGroup>												
+							</ui:repeat>						
+						</p:column>
+						<p:column headerText="#{txtPersonList.active}">
+							<h:outputText value="#{o.aktywny}" />
+						</p:column>
+						<p:column headerText="#{txtPersonList.options}">
+							<h:commandButton class="btn btn-warning" value=" #{txtPersonList.edit}" action="#{userInfoBB.editPerson(o)}" />
+								<h:panelGroup id="resultss">
+									<h:panelGroup rendered="#{o.aktywny == 1}">
+										<h:commandButton class="btn btn-danger" value="#{txtPersonList.deactivate}" action="#{userInfoBB.deactivePerson(o)}" />
+									    <br></br>
+									</h:panelGroup>
+									<h:panelGroup rendered="#{o.aktywny == 0}">
+									    <h:commandButton class="btn btn-success" value="#{txtPersonList.activate}" action="#{userInfoBB.activatePerson(o)}" />
+									    <br></br>
+									</h:panelGroup>
+								</h:panelGroup>	
+						</p:column>
+					</p:dataTable>
 				</h:form>                                                                 
 			</div>
 		</ui:define>

@@ -28,17 +28,17 @@
 				<button class="navbar-toggler" type="button" ><i class="fa-solid fa-bars"></i></button>
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div class="navbar-nav ms-auto">
-						<a class="nav-link active link" href="#home">Home</a>
-						<a class="nav-link link" href="#aboutus">#{txtMain.aboutGym}</a>
-						<a class="nav-link link" href="#prices">#{txtMain.tickets}</a>
-						<a class="nav-link link" href="#achievements">#{txtMain.achievements}</a>
-						<a class="nav-link link" href="#contact">#{txtMain.contact}</a>
+						<h:outputLink value = "index.xhtml?faces-redirect=true#home" class="nav-link active link">Home</h:outputLink>
+						<a class="nav-link link" href="index.xhtml?faces-redirect=true#aboutus">#{txtMain.aboutGym}</a>
+						<a class="nav-link link" href="index.xhtml?faces-redirect=true#prices">#{txtMain.tickets}</a>
+						<a class="nav-link link" href="index.xhtml?faces-redirect=true#achievements">#{txtMain.achievements}</a>
+						<a class="nav-link link" href="index.xhtml?faces-redirect=true#contact">#{txtMain.contact}</a>
 
 						<c:set var = "admin" scope = "session" value = "admin"/>
 						<c:set var = "user" scope = "session" value = "user"/>
 						
 						<c:if test="#{remoteClient.details.rola ne admin &amp;&amp; remoteClient.details.rola ne user}">
-							<a href="pages/LoginView.xhtml" class="nav-link link login-btn">#{txtMain.login}</a>
+							<a href="LoginView?faces-redirect=true" class="nav-link link login-btn">#{txtMain.login}</a>
 						</c:if>
 						
 						<h:form class="buttonForm">
